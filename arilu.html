@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>i loviuvu maibae</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('loveling.jpg') center/cover no-repeat fixed;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #contenedor {
+      text-align: center;
+      background: rgba(255,255,255,0.7);
+      padding: 20px;
+      border-radius: 20px;
+    }
+
+    img {
+      width: 200px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #d9006c;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.5rem;
+      color: #900;
+      margin: 10px 0 20px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 10px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    #si {
+      background-color: #f06292;
+      color: white;
+    }
+
+    #no {
+      background-color: #ef5350;
+      color: white;
+      position: relative;
+    }
+
+    #confeti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .corazon {
+      position: absolute;
+      font-size: 2rem;
+      animation: latido 1s infinite;
+      pointer-events: none;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+<div id="contenedor">
+  <img id="imagen" src="rosita.jpg" alt="Gatito" />
+  <h1 id="titulo">¡Oshe, mibonita!</h1>
+  <p id="pregunta">¿Puedo ser tu novio? :C💔</p>
+  <div>
+    <button id="shi">Shí 💖</button>
+    <button id="nou">Nou 💔</button>
+  </div>
+</div>
+
+<canvas id="confeti"></canvas>
+
+<script>
+  const siBtn = document.getElementById('shi');
+  const noBtn = document.getElementById('nou');
+  const contenedor = document.getElementById('contenedor');
+  const imagen = document.getElementById('imagen');
+  const titulo = document.getElementById('titulo');
+  const pregunta = document.getElementById('pregunta');
+
+  let rechazo = false;
+
+  noBtn.addEventListener('click', () => {
+    if (!rechazo) {
+      rechazo = true;
+      imagen.src = 'pukeno.jpg';
+      titulo.textContent = 'El botón de "no" está solo para fines visuales arilu😠';
+      pregunta.textContent = '';
+    } else {
+      moverBoton();
+    }
+  });
+
+  function moverBoton() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+  }
+
+  siBtn.addEventListener('click', () => {
+    imagen.src = 'rosita.jpg';
+    titulo.textContent = 'SIIIUUU sabía que dirías que sí mimonitalindootaaaa💕';
+    pregunta.textContent = '';
+    siBtn.style.display = 'none';
+    noBtn.style.display = 'none';
+    lanzarConfeti();
+  });
+
+  function lanzarConfeti() {
+    const canvas = document.getElementById('confeti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const corazones = ['❤️','💖','💕','💘','💞','💓'];
+
+    const particles = Array.from({ length: 100 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      speedY: Math.random() * 3 + 1,
+      symbol: corazones[Math.floor(Math.random() * corazones.length)]
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '24px serif';
+      particles.forEach(p => {
+        ctx.fillText(p.symbol, p.x, p.y);
+        p.y += p.speedY;
+        if (p.y > canvas.height) p.y = -20;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+</script>
+
+</body>
+</html>
