@@ -94,9 +94,44 @@
   </style>
 </head>
 <body>
-<audio autoplay loop>
+<audio id="musica" autoplay loop>
   <source src="wefellinlove.mp3" type="audio/mpeg">
 </audio>
+
+<button id="playMusica" style="
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #f8bbd0;
+  color: #880e4f;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 24px;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 1000;
+">
+  💕 Haz clic mividaaa
+</button>
+
+<script>
+  const musica = document.getElementById('musica');
+  const playBtn = document.getElementById('playMusica');
+
+  musica.play().catch(() => {
+    playBtn.style.display = 'block';
+  });
+
+  playBtn.addEventListener('click', () => {
+    musica.play();
+    playBtn.style.display = 'none';
+  });
+</script>
+
 
 
 
